@@ -149,32 +149,45 @@ class Deck:
 
 
 class Card:
+    def __init__(self, rank, suit, value, effect):
+        """
+        Purpose: Creates a card with rank, suit, value, and effect.
+        Arguments: rank, suit, value, effect
+        Returns: None
+        Author: Praveen Babu
+        """
+        
+        self.rank = rank
+        self.suit = suit
+        self.value = value
+        self.effect = effect
+        
     def get_card_value(self):
         """
         Purpose: get_card_value() will return the card’s point value
         Arguments: None
         Returns: int
-        Author: TBD
+        Author: Praveen Babu
         """
-        pass
+        return self.value
 
     def get_card_effect(self):
         """
         Purpose: get_card_effect() will return the card’s effect
         Arguments: None
         Returns: str
-        Author: TBD
+        Author: Praveen Babu
         """
-        pass
+        return self.effect
 
     def card_display(self):
         """
         Purpose: card_display() will show card details to the player
         Arguments: None
         Returns: str
-        Author: TBD
+        Author: Praveen Babu
         """
-        pass
+        return self.rank + " of " + self.suit
 
 
 class Scoreboard:
