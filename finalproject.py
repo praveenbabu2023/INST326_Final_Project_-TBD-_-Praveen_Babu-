@@ -109,34 +109,63 @@ class Player:
         """
         pass
 
-
 class Deck:
+    def __init__(self):
+        """
+        Purpose: Creates an empty deck.
+        Arguments: None
+        Returns: None
+        Author: Samantha Koppe
+        """
+        self.cards = []
+        
     def load_cards(self, file):
         """
         Purpose: load_cards(file) will load the card data from external file (Txt Value for cards)
         Arguments: file
         Returns: None
-        Author: TBD
+        Author: Samantha Koppe
         """
-        pass
+        suits = ("Hearts", "Diamonds", "Clubs", "Spades")
+        
+        ranks = (
+        ("2", 2), ("3", 3), ("4", 4), ("5", 5),
+        ("6", 6), ("7", 7), ("8", 8), ("9", 9),
+        ("10", 10), ("Jack", 10), ("Queen", 10),
+        ("King", 10), ("Ace", 11)
+        )
+        
+        for suit in suits:
+            for rank, value in ranks:
+                card = Card(rank, suit, value, "none")
+                self.cards.append(card)
 
     def shuffle(self):
         """
         Purpose: shuffle() shuffles the deck
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Amira Thompson
         """
-        pass
+        #Count how many cards are in the deck
+        n = len(self.cards)
+        
+        #Get Permission for random library before we do this part
+        # Step 1: Count how many cards are in the deck
+        # Step 2: Rearrange the cards
+        # Step 3: Replace the deck with new order
 
     def draw_card(self):
         """
         Purpose: draw_card() removes and returns the top card
         Arguments: None
         Returns: Card
-        Author: TBD
+        Author: Amira Thompson
         """
-        pass
+        
+        if self.cards:
+            return self.cards.pop(0)
+        return None
 
     def reset_deck(self):
         """
@@ -145,8 +174,8 @@ class Deck:
         Returns: None
         Author: TBD
         """
-        pass
-
+        self.cards = []
+        self.load_cards(None)
 
 class Card:
     def __init__(self, rank, suit, value, effect):
