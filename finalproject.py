@@ -1,4 +1,17 @@
+import random
+
 class Game:
+    def __init__(self):
+        """
+        Purpose: Creates the game.
+        Arguments: None
+        Returns: None
+        Author: TBD
+        """
+        self.players = []
+        self.deck = Deck()
+        self.scoreboard = Scoreboard()
+    
     def setup_game(self):
         """
         Purpose: setup_game() will create players and loads/shuffles the deck
@@ -6,7 +19,17 @@ class Game:
         Returns: None
         Author: TBD
         """
-        pass
+        print("Welcome to All or Nothing!")
+
+        player_count = int(input("How many players? "))
+
+        for number in range(player_count):
+            name = input("Enter player name: ")
+            player = Player(name)
+            self.players.append(player)
+
+        self.deck.load_cards("cards.txt")
+        self.deck.shuffle()
 
     def play_game(self):
         """
@@ -15,7 +38,16 @@ class Game:
         Returns: None
         Author: TBD
         """
-        pass
+        winner = None
+
+        while winner == None:
+            for player in self.players:
+                self.take_turn(player)
+                winner = self.check_winner()
+
+                if winner != None:
+                    self.scoreboard.announce_winner(winner)
+                    return
 
     def take_turn(self, player):
         """
@@ -24,7 +56,53 @@ class Game:
         Returns: None
         Author: TBD
         """
-        pass
+        player.reset_round()
+        turn_over = False
+
+        print()
+        print(player.name + "'s turn")
+        print("Total score:", player.get_score())
+        print("Turn score:", player.round_score)
+        print("Type Draw Card to draw a card.")
+        print("Type End to end your turn.")
+
+        while turn_over == False:
+            choice = input("Choice: ")
+
+            if choice == "Draw Card":
+                card = self.deck.draw_card()
+
+                if card == None:
+                    self.deck.reset_deck()
+                    self.deck.shuffle()
+                    card = self.deck.draw_card()
+
+                self.apply_card_effect(player, card)
+
+                print("You drew:", card.card_display())
+                print("Card value:", card.get_card_value())
+                print("Effect:", card.get_card_effect())
+                print("Turn score:", player.round_score)
+                print("Total score:", player.get_score())
+
+                if player.is_capped(50):
+                    print("Bust! You went over 50.")
+                    print("You lost all points from this turn.")
+                    player.lose_round_points()
+                    turn_over = True
+
+            elif choice == "End":
+                saved_points = player.round_score
+                player.bank_points()
+
+                print(player.name + " ended their turn.")
+                print(saved_points, "points were saved.")
+                print(player.name + "'s total score is now", player.get_score())
+
+                turn_over = True
+
+            else:
+                print("Please type Draw Card or End.")
 
     def apply_card_effect(self, player, card):
         """
@@ -33,7 +111,10 @@ class Game:
         Returns: None
         Author: TBD
         """
-        pass
+        if card.get_card_effect() == "double_plus_seven":
+            player.round_score = player.round_score * 2 + 7
+        else:
+            player.add_points(card.get_card_value())
 
     def check_winner(self):
         """
@@ -42,7 +123,11 @@ class Game:
         Returns: Player or None
         Author: TBD
         """
-        pass
+        for player in self.players:
+            if player.get_score() >= 100:
+                return player
+
+        return None
 
     def end_round(self):
         """
@@ -51,7 +136,9 @@ class Game:
         Returns: None
         Author: TBD
         """
-        pass
+        print()
+        print("Round over.")
+        self.scoreboard.display_scores(self.players)
 
 
 class Player:
