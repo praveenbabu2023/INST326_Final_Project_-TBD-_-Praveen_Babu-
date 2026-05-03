@@ -333,3 +333,8 @@ class Scoreboard:
         Author: TBD
         """
         pass
+     
+if __name__ == "__main__":
+    game = Game()
+    game.setup_game()
+    game.play_game()    
