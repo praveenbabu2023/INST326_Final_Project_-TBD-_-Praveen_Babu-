@@ -229,18 +229,12 @@ class Deck:
         Returns: None
         Author: Samantha Koppe
         """
-        suits = ("Hearts", "Diamonds", "Clubs", "Spades")
-        
-        ranks = (
-        ("2", 2), ("3", 3), ("4", 4), ("5", 5),
-        ("6", 6), ("7", 7), ("8", 8), ("9", 9),
-        ("10", 10), ("Jack", 10), ("Queen", 10),
-        ("King", 10), ("Ace", 11)
-        )
-        
-        for suit in suits:
-            for rank, value in ranks:
-                card = Card(rank, suit, value, "none")
+        with open(file, "r") as card_file:
+            for line in card_file:
+                rank, suit, value, effect = line.strip().split(",")
+
+                value = int(value)
+                card = Card(rank, suit, value, effect)
                 self.cards.append(card)
 
     def shuffle(self):
@@ -250,13 +244,8 @@ class Deck:
         Returns: None
         Author: Amira Thompson
         """
-        #Count how many cards are in the deck
-        n = len(self.cards)
-        
-        #Get Permission for random library before we do this part
-        # Step 1: Count how many cards are in the deck
-        # Step 2: Rearrange the cards
-        # Step 3: Replace the deck with new order
+        #Imported Random, got permission from prof on 4/27
+        random.shuffle(self.cards)
 
     def draw_card(self):
         """
@@ -278,7 +267,8 @@ class Deck:
         Author: TBD
         """
         self.cards = []
-        self.load_cards(None)
+        self.load_cards("cards.txt")
+        self.shuffle()
 
 class Card:
     def __init__(self, rank, suit, value, effect):
