@@ -320,7 +320,10 @@ class Scoreboard:
         Returns: None
         Author: TBD
         """
-        pass
+        print("Current Scores:")
+
+        for player in players:
+            print(f"{player.name}: {player.get_score()} points")
 
     def get_leader(self, players):
         """
@@ -329,7 +332,8 @@ class Scoreboard:
         Returns: Player
         Author: TBD
         """
-        pass
+        leader = max(players, key=Player.get_score)
+        return leader
 
     def announce_winner(self, player):
         """
@@ -338,7 +342,9 @@ class Scoreboard:
         Returns: None
         Author: TBD
         """
-        pass
+        print()
+        print("Game over!")
+        print(f"{player.name} wins All or Nothing with {player.get_score()} points!")
      
 if __name__ == "__main__":
     game = Game()
