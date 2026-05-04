@@ -142,6 +142,17 @@ class Game:
 
 
 class Player:
+    def __init__(self, name):
+        """
+        Purpose: Creates a player with a name, total score, and round score.
+        Arguments: name
+        Returns: None
+        Author: TBD
+        """
+        self.name = name
+        self.total_score = 0
+        self.round_score = 0
+        
     def add_points(self, amount):
         """
         Purpose: add_points(amount) will add points to the player’s round total
@@ -149,7 +160,7 @@ class Player:
         Returns: None
         Author: TBD
         """
-        pass
+        self.round_score = self.round_score + amount
 
     def bank_points(self):
         """
@@ -158,7 +169,8 @@ class Player:
         Returns: None
         Author: TBD
         """
-        pass
+        self.total_score = self.total_score + self.round_score
+        self.round_score = 0
 
     def reset_round(self):
         """
@@ -167,7 +179,7 @@ class Player:
         Returns: None
         Author: TBD
         """
-        pass
+        self.round_score = 0
 
     def lose_round_points(self):
         """
@@ -176,7 +188,7 @@ class Player:
         Returns: None
         Author: TBD
         """
-        pass
+        self.round_score = 0
 
     def is_capped(self, limit):
         """
@@ -185,7 +197,10 @@ class Player:
         Returns: bool
         Author: TBD
         """
-        pass
+        if self.round_score > limit:
+            return True
+        else:
+            return False
 
     def get_score(self):
         """
@@ -194,7 +209,7 @@ class Player:
         Returns: int
         Author: TBD
         """
-        pass
+        return self.total_score
 
 class Deck:
     def __init__(self):
@@ -205,6 +220,7 @@ class Deck:
         Author: Samantha Koppe
         """
         self.cards = []
+        self.used_cards = []
         
     def load_cards(self, file):
         """
