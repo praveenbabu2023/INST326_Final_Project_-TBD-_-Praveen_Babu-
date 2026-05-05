@@ -67,9 +67,9 @@ class Game:
         print("Type End to end your turn.")
 
         while turn_over == False:
-            choice = input("Choice: ")
+            choice = input("Choice: ").strip().lower()
 
-            if choice == "Draw Card":
+            if choice == "draw card":
                 card = self.deck.draw_card()
 
                 if card == None:
@@ -78,20 +78,27 @@ class Game:
                     card = self.deck.draw_card()
 
                 self.apply_card_effect(player, card)
-
-                print("You drew:", card.card_display())
+                player.add_drawn_card(card)
+                
+                if self.check_same_suit_bonus(player) and player.same_suit_bonus_used == False:
+                    player.add_points(15)
+                    player.same_suit_bonus_used = True
+                    print("Same suit bonus! You gained 15 points.")
+            
+            
+                print("You drew:", card)
                 print("Card value:", card.get_card_value())
                 print("Effect:", card.get_card_effect())
                 print("Turn score:", player.round_score)
                 print("Total score:", player.get_score())
 
-                if player.is_capped(50):
+                if player.is_capped():
                     print("Bust! You went over 50.")
                     print("You lost all points from this turn.")
                     player.lose_round_points()
                     turn_over = True
 
-            elif choice == "End":
+            elif choice == "end":
                 saved_points = player.round_score
                 player.bank_points()
 
@@ -115,6 +122,30 @@ class Game:
             player.round_score = player.round_score * 2 + 7
         else:
             player.add_points(card.get_card_value())
+            
+    def check_same_suit_bonus(self, player):
+        """
+        Purpose: Checks if a player drew more than 3 cards of the same suit in one turn.
+        Arguments: player
+        Returns: bool
+        Author: TBD
+        """
+        suits = []
+
+        for card in player.drawn_cards:
+            suits.append(card.suit)
+
+        for suit in suits:
+            count = 0
+
+            for card_suit in suits:
+                if card_suit == suit:
+                    count = count + 1
+
+            if count > 3:
+                return True
+
+        return False
 
     def check_winner(self):
         """
@@ -152,6 +183,8 @@ class Player:
         self.name = name
         self.total_score = 0
         self.round_score = 0
+        self.drawn_cards = []
+        self.same_suit_bonus_used = False
         
     def add_points(self, amount):
         """
@@ -161,6 +194,15 @@ class Player:
         Author: TBD
         """
         self.round_score = self.round_score + amount
+        
+    def add_drawn_card(self, card):
+        """
+        Purpose: Adds a drawn card to the player's drawn card list.
+        Arguments: card
+        Returns: None
+        Author: TBD
+        """
+        self.drawn_cards.append(card)
 
     def bank_points(self):
         """
@@ -180,6 +222,8 @@ class Player:
         Author: TBD
         """
         self.round_score = 0
+        self.drawn_cards = []
+        self.same_suit_bonus_used = False
 
     def lose_round_points(self):
         """
@@ -190,7 +234,7 @@ class Player:
         """
         self.round_score = 0
 
-    def is_capped(self, limit):
+    def is_capped(self, limit=50):
         """
         Purpose: is_capped(limit) checks if round total exceeds 50
         Arguments: limit
@@ -220,8 +264,7 @@ class Deck:
         Author: Samantha Koppe
         """
         self.cards = []
-        self.used_cards = []
-        
+    
     def load_cards(self, file):
         """
         Purpose: load_cards(file) will load the card data from external file (Txt Value for cards)
@@ -244,7 +287,7 @@ class Deck:
         Returns: None
         Author: Amira Thompson
         """
-        #Imported Random, got permission from prof on 4/27
+        
         random.shuffle(self.cards)
 
     def draw_card(self):
@@ -284,6 +327,15 @@ class Card:
         self.value = value
         self.effect = effect
         
+    def __str__(self):
+        """
+        Purpose: Returns the card as a readable string.
+        Arguments: None
+        Returns: str
+        Author: Praveen Babu
+        """
+        return self.rank + " of " + self.suit
+        
     def get_card_value(self):
         """
         Purpose: get_card_value() will return the card’s point value
@@ -318,7 +370,7 @@ class Scoreboard:
         Purpose: display_scores(players) prints all player scores
         Arguments: players
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         print("Current Scores:")
 
