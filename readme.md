@@ -45,9 +45,13 @@ Random Library
 https://www.w3schools.com/python/module_random.asp  
 This source was used to understand the Python random module. It helped us understand how random functions can be used to shuffle or randomize items. We used random.shuffle() in the Deck class to shuffle the cards after getting permission to use the random module.
 
-GitHub Docs: Organizing Information with Tables  
+GitHub: Organizing Information with Tables  
 https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables  
 This source was used to format tables in the README.md file.
+
+GitHub: Basic Writing and Formatting Syntax  
+https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax  
+This source was used for Markdown formatting in the README.md file.
 
 ## Attribution Table
 
