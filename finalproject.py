@@ -1,12 +1,16 @@
 import random
 
 class Game:
+    """
+    Purpose: Controls the main game setup, game loop, player turns, and win checking.
+    Author: Praveen Babu
+    """
     def __init__(self):
         """
         Purpose: Creates the game.
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         self.players = []
         self.deck = Deck()
@@ -17,7 +21,7 @@ class Game:
         Purpose: setup_game() will create players and loads/shuffles the deck
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         print("Welcome to All or Nothing!")
 
@@ -36,7 +40,7 @@ class Game:
         Purpose: play_game() will run the full game loop until someone wins
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         winner = None
 
@@ -54,7 +58,7 @@ class Game:
         Purpose: take_turn(player) will control one player’s turn if its a draw or stop
         Arguments: player
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         player.reset_round()
         turn_over = False
@@ -116,7 +120,7 @@ class Game:
         Purpose: apply_card_effect(player, card) applies the effect of a drawn card
         Arguments: player, card
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         if card.get_card_effect() == "double_plus_seven":
             player.round_score = player.round_score * 2 + 7
@@ -128,7 +132,7 @@ class Game:
         Purpose: Checks if a player drew more than 3 cards of the same suit in one turn.
         Arguments: player
         Returns: bool
-        Author: TBD
+        Author: Praveen Babu
         """
         suits = []
 
@@ -152,7 +156,7 @@ class Game:
         Purpose: check_winner() will check if any player reached 100 points
         Arguments: None
         Returns: Player or None
-        Author: TBD
+        Author: Praveen Babu
         """
         for player in self.players:
             if player.get_score() >= 100:
@@ -165,7 +169,7 @@ class Game:
         Purpose: end_round() will handle round transitions/reset if needed
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         print()
         print("Round over.")
@@ -173,12 +177,17 @@ class Game:
 
 
 class Player:
+    """
+    Purpose: Stores each player's name, total score, round score, drawn cards, and bonus status.
+    Author: Samantha Koppe
+    """
+    
     def __init__(self, name):
         """
-        Purpose: Creates a player with a name, total score, and round score.
+        Purpose: Creates a player with a name, total score, round score, drawn cards list, and bonus tracker.
         Arguments: name
         Returns: None
-        Author: TBD
+        Author: Samantha Koppe
         """
         self.name = name
         self.total_score = 0
@@ -191,7 +200,7 @@ class Player:
         Purpose: add_points(amount) will add points to the player’s round total
         Arguments: amount
         Returns: None
-        Author: TBD
+        Author: Samantha Koppe
         """
         self.round_score = self.round_score + amount
         
@@ -200,7 +209,7 @@ class Player:
         Purpose: Adds a drawn card to the player's drawn card list.
         Arguments: card
         Returns: None
-        Author: TBD
+        Author: Samantha Koppe
         """
         self.drawn_cards.append(card)
 
@@ -209,17 +218,17 @@ class Player:
         Purpose: bank_points() will adds round points to total score
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Samantha Koppe
         """
         self.total_score = self.total_score + self.round_score
         self.round_score = 0
 
     def reset_round(self):
         """
-        Purpose: reset_round() resets round points to 0 at start of turn
+        Purpose: Resets the player's round score, drawn cards list, and same-suit bonus tracker at the start of a turn.
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Samantha Koppe
         """
         self.round_score = 0
         self.drawn_cards = []
@@ -230,7 +239,7 @@ class Player:
         Purpose: lose_round_points() will clears the points if player busts
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Samantha Koppe
         """
         self.round_score = 0
 
@@ -239,7 +248,7 @@ class Player:
         Purpose: is_capped(limit) checks if round total exceeds 50
         Arguments: limit
         Returns: bool
-        Author: TBD
+        Author: Samantha Koppe
         """
         if self.round_score > limit:
             return True
@@ -251,17 +260,21 @@ class Player:
         Purpose: get_score() will return total score
         Arguments: None
         Returns: int
-        Author: TBD
+        Author: Samantha Koppe
         """
         return self.total_score
 
 class Deck:
+    """
+    Purpose: Handles loading, shuffling, drawing, and resetting cards.
+    Author: Amira Thompson
+    """
     def __init__(self):
         """
         Purpose: Creates an empty deck.
         Arguments: None
         Returns: None
-        Author: Samantha Koppe
+        Author: Amira Thompson
         """
         self.cards = []
     
@@ -270,7 +283,7 @@ class Deck:
         Purpose: load_cards(file) will load the card data from external file (Txt Value for cards)
         Arguments: file
         Returns: None
-        Author: Samantha Koppe
+        Author: Amira Thompson
         """
         with open(file, "r") as card_file:
             for line in card_file:
@@ -285,7 +298,7 @@ class Deck:
         Purpose: shuffle() shuffles the deck
         Arguments: None
         Returns: None
-        Author: Amira Thompson
+        Author: Praveen Babu
         """
         
         random.shuffle(self.cards)
@@ -307,19 +320,23 @@ class Deck:
         Purpose: reset_deck() reloads or reshuffles when empty
         Arguments: None
         Returns: None
-        Author: TBD
+        Author: Amira Thompson
         """
         self.cards = []
         self.load_cards("cards.txt")
         self.shuffle()
 
 class Card:
+    """
+    Purpose: Stores one card's rank, suit, value, and effect.
+    Author: Mekiyas Seleshi
+    """
     def __init__(self, rank, suit, value, effect):
         """
         Purpose: Creates a card with rank, suit, value, and effect.
         Arguments: rank, suit, value, effect
         Returns: None
-        Author: Praveen Babu
+        Author: Mekiyas Seleshi
         """
         
         self.rank = rank
@@ -332,7 +349,7 @@ class Card:
         Purpose: Returns the card as a readable string.
         Arguments: None
         Returns: str
-        Author: Praveen Babu
+        Author: Mekiyas Seleshi
         """
         return self.rank + " of " + self.suit
         
@@ -341,7 +358,7 @@ class Card:
         Purpose: get_card_value() will return the card’s point value
         Arguments: None
         Returns: int
-        Author: Praveen Babu
+        Author: Mekiyas Seleshi
         """
         return self.value
 
@@ -350,7 +367,7 @@ class Card:
         Purpose: get_card_effect() will return the card’s effect
         Arguments: None
         Returns: str
-        Author: Praveen Babu
+        Author: Mekiyas Seleshi
         """
         return self.effect
 
@@ -359,12 +376,16 @@ class Card:
         Purpose: card_display() will show card details to the player
         Arguments: None
         Returns: str
-        Author: Praveen Babu
+        Author: Mekiyas Seleshi
         """
         return self.rank + " of " + self.suit
 
 
 class Scoreboard:
+    """
+    Purpose: Displays scores, finds the leader, and announces the winner.
+    Author: Praveen Babu
+    """
     def display_scores(self, players):
         """
         Purpose: display_scores(players) prints all player scores
@@ -382,7 +403,7 @@ class Scoreboard:
         Purpose: get_leader(players) will return player with highest score
         Arguments: players
         Returns: Player
-        Author: TBD
+        Author: Praveen Babu
         """
         leader = max(players, key=Player.get_score)
         return leader
@@ -392,7 +413,7 @@ class Scoreboard:
         Purpose: announce_winner(player) will display the winner
         Arguments: player
         Returns: None
-        Author: TBD
+        Author: Praveen Babu
         """
         print()
         print("Game over!")
