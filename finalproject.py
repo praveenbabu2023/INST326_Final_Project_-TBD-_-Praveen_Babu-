@@ -1,4 +1,6 @@
-#All or Nothing 
+#INST325 Final Project
+#All or Nothing
+
 import random
 
 class Game:
@@ -424,4 +426,4 @@ if __name__ == "__main__":
     game = Game()
     game.setup_game()
     game.play_game()
-        
+       
