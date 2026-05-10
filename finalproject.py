@@ -1,7 +1,6 @@
 #INST326 Final Project
 
 import random
-
 class Game:
     """
     Purpose: Controls the main game setup, game loop, player turns, and win checking.

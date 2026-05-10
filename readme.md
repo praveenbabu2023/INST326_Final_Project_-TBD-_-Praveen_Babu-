@@ -69,6 +69,5 @@ This source was used for Markdown formatting in the README.md file.
 | Deck.draw_card() | Amira Thompson | N/A |
 | Card.__str__() | Mekiyas Seleshi | 14. magic methods other than __init__() |
 | Card.get_card_value() | Mekiyas Seleshi | N/A |
-| Card.get_card_effect() | Mekiyas Seleshi | N/A |
 
 ## Thank You for Checking Out All or Nothing!!!

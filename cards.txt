@@ -44,8 +44,8 @@ Ace,Clubs,11,none
 6,Spades,6,none
 7,Spades,7,double_plus_seven
 8,Spades,8,none
-10,Spades,10,none
 9,Spades,9,none
+10,Spades,10,none
 Jack,Spades,10,none
 Queen,Spades,10,none
 King,Spades,10,none
