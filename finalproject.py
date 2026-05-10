@@ -1,6 +1,4 @@
-#INST325 Final Project
-#All or Nothing
-# By Praveen Babu, Samantha Koppe, Amira Thompson, Mekiyas Seleshi
+#INST326 Final Project
 
 import random
 
